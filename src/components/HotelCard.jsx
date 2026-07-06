@@ -11,7 +11,7 @@ export default function HotelCard({ hotel }) {
   });
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-3 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100/85 bg-white p-3 shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:shadow-indigo-100/40 hover:-translate-y-1.5 transition-all duration-350">
       
       {/* Thumbnail Area with overlay elements */}
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100">

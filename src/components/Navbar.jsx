@@ -1,9 +1,12 @@
-import React from 'react';
-import { Compass, User, Globe, Menu } from 'lucide-react';
+import React, { useState } from 'react';
+import { Compass, Globe, Menu } from 'lucide-react';
 
 export default function Navbar() {
+  const [activeTab, setActiveTab] = useState('Discover');
+  const tabs = ['Discover', 'Hotels', 'Trips', 'Inspirations'];
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand/Logo */}
         <div className="flex items-center gap-2 cursor-pointer group">
@@ -16,33 +19,33 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-          <a href="#" className="text-indigo-600 border-b-2 border-indigo-600 pb-1 pt-0.5 transition-colors">
-            Discover
-          </a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">
-            Hotels
-          </a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">
-            Trips
-          </a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">
-            Inspirations
-          </a>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab;
+            return (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`relative pb-1 pt-0.5 transition-all duration-200 cursor-pointer ${
+                  isActive 
+                    ? 'text-indigo-600 font-semibold' 
+                    : 'text-gray-500 hover:text-gray-800'
+                }`}
+              >
+                {tab}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-full" />
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         {/* Right Actions */}
         <div className="flex items-center gap-4">
-          <button className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+          <button className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
             <Globe size={14} />
             <span>USD</span>
-          </button>
-          
-          <button className="flex items-center gap-2 rounded-full border border-gray-200 bg-white p-1.5 pr-3 shadow-xs hover:shadow-md transition-all duration-200">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-gray-600">
-              <User size={16} />
-            </div>
-            <span className="text-xs font-semibold text-gray-700 hidden sm:inline">Sign In</span>
           </button>
 
           {/* Mobile menu button */}

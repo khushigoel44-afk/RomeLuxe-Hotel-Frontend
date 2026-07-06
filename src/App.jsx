@@ -30,7 +30,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50 flex flex-col font-sans antialiased text-gray-800">
+    <div className="min-h-screen bg-transparent flex flex-col font-sans antialiased text-gray-800">
       {/* Sticky Top Navbar */}
       <Navbar />
 
