@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Compass, Globe, Menu } from 'lucide-react';
 
-export default function Navbar() {
-  const [activeTab, setActiveTab] = useState('Discover');
+export default function Navbar({ activeTab, setActiveTab }) {
   const tabs = ['Discover', 'Hotels', 'Trips', 'Inspirations'];
 
   return (
@@ -41,13 +40,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Actions */}
+        {/* Right Actions - USD element removed */}
         <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
-            <Globe size={14} />
-            <span>USD</span>
-          </button>
-
           {/* Mobile menu button */}
           <button className="md:hidden p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg">
             <Menu size={20} />

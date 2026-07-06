@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import HotelList from './components/HotelList';
@@ -7,11 +7,27 @@ import { useFetchHotels } from './hooks/useFetchHotels';
 export default function App() {
   const { hotels, loading, error } = useFetchHotels();
 
+  // Navigation tab state - defaults to 'Hotels' as per image_3.png requirements
+  const [activeTab, setActiveTab] = useState('Hotels');
+
   // Search & Filter state variables
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('Pune');
   const [minRating, setMinRating] = useState('0');
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState('price-desc');
+
+  // Reactively update default filters when switching active tabs (Content Routing)
+  useEffect(() => {
+    if (activeTab === 'Hotels') {
+      setSelectedLocation('Pune');
+      setSortBy('price-desc'); // Price: High to Low
+    } else {
+      setSelectedLocation('');
+      setSortBy('featured');
+    }
+    setSearchQuery('');
+    setMinRating('0');
+  }, [activeTab]);
 
   // Dynamically compute unique locations from the API hotels data list
   const uniqueLocations = React.useMemo(() => {
@@ -21,21 +37,27 @@ export default function App() {
       .sort();
   }, [hotels]);
 
-  // Handler to clear search states back to default values
+  // Handler to clear search states back to default values for the active view
   const handleResetFilters = () => {
     setSearchQuery('');
-    setSelectedLocation('');
     setMinRating('0');
-    setSortBy('featured');
+    if (activeTab === 'Hotels') {
+      setSelectedLocation('Pune');
+      setSortBy('price-desc');
+    } else {
+      setSelectedLocation('');
+      setSortBy('featured');
+    }
   };
 
   return (
     <div className="min-h-screen bg-transparent flex flex-col font-sans antialiased text-gray-800">
-      {/* Sticky Top Navbar */}
-      <Navbar />
+      {/* Sticky Top Navbar with lifted active state */}
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Hero Welcome banner & filter bar */}
+      {/* Hero Welcome banner & filter bar adapted to active view */}
       <Hero 
+        activeTab={activeTab}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         selectedLocation={selectedLocation}

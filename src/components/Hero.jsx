@@ -2,6 +2,7 @@ import React from 'react';
 import { Search, MapPin, Star, ArrowUpDown, ChevronDown } from 'lucide-react';
 
 export default function Hero({ 
+  activeTab,
   searchQuery, setSearchQuery, 
   selectedLocation, setSelectedLocation, 
   minRating, setMinRating,
@@ -9,8 +10,34 @@ export default function Hero({
   locations = []
 }) {
 
+  const isHotelsView = activeTab === 'Hotels';
+
+  const subtitleText = isHotelsView ? 'Find Your Perfect Pune Hotel' : 'Premium Hotel Collection';
+
+  const titleContent = isHotelsView ? (
+    <>
+      Browse <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent font-black">Premium Pune Hotels</span> and Accommodations
+    </>
+  ) : (
+    <>
+      Discover Your <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent font-black block sm:inline">Next Stay</span>
+    </>
+  );
+
+  const descriptionText = isHotelsView 
+    ? "Explore our handpicked selection of Pune's finest hotels, luxury resorts, and unique boutique properties, at the best guaranteed prices."
+    : "Explore our handpicked selection of top-rated hotels, cozy retreats, and luxury resorts at the best guaranteed prices.";
+
   // Helper to translate sort value to human readable premium labels
   const getSortLabel = (val) => {
+    if (isHotelsView) {
+      switch (val) {
+        case 'price-desc': return 'Sort Pune Hotels | Price: High to Low';
+        case 'price-asc': return 'Sort Pune Hotels | Price: Low to High';
+        case 'rating-desc': return 'Sort Pune Hotels | Top Rated';
+        default: return 'Sort Pune Hotels | Featured';
+      }
+    }
     switch (val) {
       case 'price-asc': return 'Price: Low to High';
       case 'price-desc': return 'Price: High to Low';
@@ -39,13 +66,13 @@ export default function Hero({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-20">
         {/* Title & Tagline */}
         <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50/80 backdrop-blur-xs px-3.5 py-1.5 text-xs font-semibold text-indigo-700 ring-1 ring-indigo-600/10 mb-5 animate-fade-in shadow-xs">
-          ✨ Premium Hotel Collection
+          ✨ {subtitleText}
         </span>
         <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-5xl md:text-6xl max-w-3xl mx-auto leading-[1.1]">
-          Discover Your <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent font-black block sm:inline">Next Stay</span>
+          {titleContent}
         </h1>
         <p className="mt-5 text-sm sm:text-base text-gray-600 max-w-xl mx-auto font-medium leading-relaxed">
-          Explore our handpicked selection of top-rated hotels, cozy retreats, and luxury resorts at the best guaranteed prices.
+          {descriptionText}
         </p>
 
         {/* Search & Filter Container (Polished control panel with glassmorphism) */}
@@ -126,10 +153,10 @@ export default function Hero({
                 onChange={(e) => setSortBy(e.target.value)}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer [&>option]:text-gray-800"
               >
-                <option value="featured">Featured</option>
+                <option value="featured">Featured Stays</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
-                <option value="rating-desc">Top Rated</option>
+                <option value="rating-desc">Top Rated Stays</option>
               </select>
             </div>
 
