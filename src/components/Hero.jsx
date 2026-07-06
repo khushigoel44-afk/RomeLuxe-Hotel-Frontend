@@ -11,12 +11,13 @@ export default function Hero({
 }) {
 
   const isHotelsView = activeTab === 'Hotels';
+  const displayLoc = selectedLocation || 'City';
 
-  const subtitleText = isHotelsView ? 'Find Your Perfect Pune Hotel' : 'Premium Hotel Collection';
+  const subtitleText = isHotelsView ? `Find Your Perfect ${displayLoc} Hotel` : 'Premium Hotel Collection';
 
   const titleContent = isHotelsView ? (
     <>
-      Browse <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent font-black">Premium Pune Hotels</span> and Accommodations
+      Browse <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent font-black">Premium {displayLoc} Hotels</span> and Accommodations
     </>
   ) : (
     <>
@@ -25,17 +26,17 @@ export default function Hero({
   );
 
   const descriptionText = isHotelsView 
-    ? "Explore our handpicked selection of Pune's finest hotels, luxury resorts, and unique boutique properties, at the best guaranteed prices."
+    ? `Explore our handpicked selection of ${displayLoc}'s finest hotels, luxury resorts, and unique boutique properties, at the best guaranteed prices.`
     : "Explore our handpicked selection of top-rated hotels, cozy retreats, and luxury resorts at the best guaranteed prices.";
 
   // Helper to translate sort value to human readable premium labels
   const getSortLabel = (val) => {
     if (isHotelsView) {
       switch (val) {
-        case 'price-desc': return 'Sort Pune Hotels | Price: High to Low';
-        case 'price-asc': return 'Sort Pune Hotels | Price: Low to High';
-        case 'rating-desc': return 'Sort Pune Hotels | Top Rated';
-        default: return 'Sort Pune Hotels | Featured';
+        case 'price-desc': return `Sort ${displayLoc} Hotels | Price: High to Low`;
+        case 'price-asc': return `Sort ${displayLoc} Hotels | Price: Low to High`;
+        case 'rating-desc': return `Sort ${displayLoc} Hotels | Top Rated`;
+        default: return `Sort ${displayLoc} Hotels | Featured`;
       }
     }
     switch (val) {

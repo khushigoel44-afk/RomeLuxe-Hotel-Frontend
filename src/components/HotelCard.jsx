@@ -72,7 +72,10 @@ export default function HotelCard({ hotel }) {
             <span className="text-lg font-extrabold text-indigo-600">${formattedPrice}</span>
           </div>
           
-          <button className="rounded-xl bg-indigo-50 px-4 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white active:scale-95 transition-all duration-200 cursor-pointer shadow-xs">
+          <button 
+            onClick={() => alert(`Booking initiated for ${name}. Proceeding to checkout.`)}
+            className="rounded-xl bg-indigo-50 px-4 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white active:scale-95 transition-all duration-200 cursor-pointer shadow-xs"
+          >
             Book Now
           </button>
         </div>
